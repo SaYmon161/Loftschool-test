@@ -9,7 +9,7 @@
 <style lang="scss">
 .pagination {
   align-self: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .pagination__list {

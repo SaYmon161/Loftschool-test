@@ -8,13 +8,13 @@
         .popup__price {{thousandSeparator(good.price)}}
         .popup__mul x
         .popup__amount
-          .popup__amount-minus
-          input(type="text" v-model="calcAmount").popup__amount-input
-          .popup__amount-plus
+          .popup__amount-minus(@click="calcAmount--")
+          input(type="text" v-model="calcAmount" @keypress="keyValidate").popup__amount-input
+          .popup__amount-plus(@click="calcAmount++")
         .popup__cost {{thousandSeparator(good.price * calcAmount)}} Р
       .popup__control
-        a(href="#", title="сохранить" @click="saveAmount").popup__link.popup__link--blue сохранить
-        a(href="#" title="отменить" @click="popupClose").popup__link отменить
+        a(href="#", title="сохранить" @click.prevent="saveAmount").popup__link.popup__link--blue сохранить
+        a(href="#" title="отменить" @click.prevent="popupClose").popup__link отменить
 </template>
 
 <script>
@@ -32,6 +32,9 @@ export default {
   created() {
     this.calcAmount = this.good.amount;
   },
+  mounted() {
+    document.querySelector(".popup__amount-input").focus();
+  },
   methods: {
     popupClose() {
       this.$emit("popupClose");
@@ -39,6 +42,39 @@ export default {
     saveAmount() {
       this.good.amount = this.calcAmount;
       this.popupClose();
+    },
+    keyValidate(e) {
+      e = e || event;
+
+      if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+      var chr = this.getChar(e);
+
+      if (chr == null) return;
+
+      if (chr < "0" || chr > "9") {
+        e.preventDefault();
+      }
+    },
+    getChar(e) {
+      if (e.which == null) {
+        if (e.keyCode < 32) return null;
+        return String.fromCharCode(e.keyCode);
+      }
+
+      if (e.which != 0 && e.charCode != 0) {
+        if (e.which < 32) return null;
+        return String.fromCharCode(e.which);
+      }
+
+      return null;
+    }
+  },
+  watch: {
+    calcAmount() {
+      if (this.calcAmount < 1 || this.calcAmount === "") {
+        this.calcAmount = 1;
+      }
     }
   }
 };

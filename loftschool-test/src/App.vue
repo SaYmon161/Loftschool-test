@@ -54,6 +54,6 @@ export default {
   font-size: 30px;
   text-transform: uppercase;
   color: #0a7eb5;
-  margin-bottom: 30px;
+  margin-bottom: 14px;
 }
 </style>

@@ -4,7 +4,7 @@
       span.statusbar__left-text Выделено
       span.statusbar__left-counter {{checkedGoods.length}}
     .statusbar__right
-      a(href="#" @click="deleteChecked").statusbar__delete-link
+      a(href="#" @click.prevent="deleteChecked").statusbar__delete-link
         .statusbar__delete-icon
         .statusbar__delete-text Удалить отмеченные
 </template>

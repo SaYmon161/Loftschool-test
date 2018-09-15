@@ -19,7 +19,7 @@
         :id="good.id"
         ).buy-item__amount-input
       span.buy-item__equal =
-      span.buy-item__cost {{thousandSeparator(good.price * good.amount)}} Р
+      span.buy-item__cost {{thousandSeparator(cost)}} Р
     popup(
       v-if="popupOpen"
       :good="good"
@@ -44,7 +44,8 @@ export default {
   },
   props: {
     good: Object,
-    index: Number
+    index: Number,
+    thousandSeparator: Function
   },
   created() {
     this.good.checked = false;
@@ -69,26 +70,16 @@ export default {
     },
     checkGood() {
       this.$emit("checkGood");
-    },
-    thousandSeparator(str) {
-      var parts = (str + "").split("."),
-        main = parts[0],
-        len = main.length,
-        output = "",
-        i = len - 1;
-
-      while (i >= 0) {
-        output = main.charAt(i) + output;
-        if ((len - i) % 3 === 0 && i > 0) {
-          output = " " + output;
-        }
-        --i;
-      }
-
-      if (parts.length > 1) {
-        output += "." + parts[1];
-      }
-      return output;
+    }
+  },
+  computed: {
+    cost() {
+      return this.good.price * this.good.amount;
+    }
+  },
+  watch: {
+    cost() {
+      this.$emit("reCalc");
     }
   }
 };

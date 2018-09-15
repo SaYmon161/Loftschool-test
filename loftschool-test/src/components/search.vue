@@ -6,6 +6,10 @@
 </template>
 
 <style lang="scss">
+.search {
+  padding-top: 20px;
+}
+
 .search__form {
   display: flex;
   align-items: center;

@@ -25,7 +25,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 54px;
+  margin-bottom: 50px;
 }
 
 .header__row {
@@ -33,7 +33,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 
   &:last-child {
     margin-bottom: 0;
